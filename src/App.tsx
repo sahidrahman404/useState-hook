@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 
-function Greeting({ initialName }: { initialName?: string }) {
+function Greeting({ initialName }: { initialName: string }) {
   const [name, setName] = useState<string>(initialName ? initialName : "");
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
@@ -21,7 +21,7 @@ function Greeting({ initialName }: { initialName?: string }) {
 }
 
 function App() {
-  return <Greeting />;
+  return <Greeting initialName="rahman" />;
 }
 
 export default App;
