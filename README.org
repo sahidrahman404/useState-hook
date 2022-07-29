@@ -20,7 +20,7 @@ React.useReducer), and others return nothing at all (like React.useEffect).
 
 #+begin_src tsx
 function Greeting() {
-  const [name, setName] = useState<string>(initialName);
+  const [name, setName] = useState<string>("");
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setName(event.target.value);
