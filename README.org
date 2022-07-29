@@ -1,0 +1,64 @@
+#+title: useState Hook
+
+Normally an interactive application will need to hold state somewhere. In React,
+you use special functions called "hooks" to do this. Common built-in hooks
+include:
+
+1. React.useState
+2. React.useEffect
+3. React.useContext
+4. React.useRef
+5. React.useReducer
+
+Each of these is a special function that you can call inside your custom React
+component function to store data (like state) or perform actions (or
+side-effects).
+
+Each of the hooks has a unique API. Some return a value (like React.useRef and
+React.useContext), others return a pair of values (like React.useState and
+React.useReducer), and others return nothing at all (like React.useEffect).
+
+#+begin_src tsx
+function Greeting() {
+  const [name, setName] = useState<string>(initialName);
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    setName(event.target.value);
+  }
+
+  return (
+    <div>
+      <form
+        onSubmit={(event: FormEvent<HTMLFormElement>) => event.preventDefault()}
+      >
+        <label htmlFor="name">Name: </label>
+        <input onChange={handleChange} id="name" />
+      </form>
+      {name ? <strong>Hello {name}</strong> : "Please type your name"}
+    </div>
+  );
+}
+#+end_src
+
+React.useState is a function that accepts a single argument. That argument is
+the initial state for the instance of the component. In our case, the state will
+start as an empty string.
+
+React.useState returns a pair of values. It does this by returning an array with
+two elements (and we use destructuring syntax to assign each of those values to
+distinct variables). The first of the pair is the state value and the second is
+a function we can call to update the state. We can name these variables whatever
+we want. Common convention is to choose a name for the state variable, then
+prefix ~set~ in front of that for the updater function.
+
+~State can be defined as: data that changes over time.~
+
+So how does this work over time? When the button is clicked, our handleChange
+function will be called at which time we update the ~name~ by calling setName.
+
+~When we call setName, that tells React to re-render our component.~
+
+When it does this, the entire Counter function is re-run, so when React.useState
+is called this time, the value we get back is the value that we called setName
+with. And it continues like that until Greeting is unmounted (removed from the
+application), or the user closes the application.
